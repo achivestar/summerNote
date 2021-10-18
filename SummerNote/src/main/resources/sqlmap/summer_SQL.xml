@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="summer">
+
+	<insert id="summerInsert" parameterType="com.pe.bluering.vo.SummerVO" useGeneratedKeys="true" keyProperty="idx">
+		<![CDATA[
+			INSERT INTO summertest 
+			(subject,contents,thumburl,regdate)
+			VALUES 
+			(#{subject},#{contents},#{thumburl},now());
+		]]>
+	</insert>
+
+
+	<select id="summerGetImgCount" resultType="int">
+		<![CDATA[
+			SELECT count(idx) as idx from summertest;
+		]]>
+	</select>
+	
+	
+	<select id="summerGetLastIdx" resultType="int">
+		<![CDATA[
+			SELECT max(idx) as idx from summertest;
+		]]>
+	</select>
+	
+	
+	<select id="getSummerList" resultType="com.pe.bluering.vo.SummerVO">
+		<![CDATA[
+			SELECT * from summertest;
+		]]>
+	</select>
+	
+	<delete id="summerDelete" parameterType="int">
+		<![CDATA[
+			DELETE FROM summertest where idx = #{idx}
+		]]>
+	</delete>
+	
+	<select id="summerModify" parameterType="int" resultType="com.pe.bluering.vo.SummerVO">
+		<![CDATA[
+			SELECT * FROM summertest where idx = #{idx}
+		]]>
+	</select>
+	
+	
+	<update id="summerUpdate" parameterType="com.pe.bluering.vo.SummerVO">
+		<![CDATA[
+			UPDATE summertest SET 
+			subject = #{subject}, contents = #{contents}
+			WHERE
+			idx = #{idx}
+		]]>
+	</update>
+	
+	<update id="summerThumbUpdate" parameterType="com.pe.bluering.vo.SummerVO">
+		<![CDATA[
+			UPDATE summertest SET 
+			thumburl = #{thumburl}
+			WHERE
+			idx = #{idx}
+		]]>
+	</update>
+	
+	
+</mapper>
